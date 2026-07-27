@@ -1,0 +1,23 @@
+# Dependencies
+job-portal-api/node_modules/
+job-portal-frontend/node_modules/
+
+# Environment
+job-portal-api/.env
+job-portal-frontend/.env
+
+# Next.js
+job-portal-frontend/.next/
+job-portal-frontend/out/
+
+# Backend build
+job-portal-api/dist/
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
+
+# TypeScript
+*.tsbuildinfo
