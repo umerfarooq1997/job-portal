@@ -3,7 +3,7 @@ import {
   findUserByEmail,
 } from "../repositories/user.repositories.js";
 
-export const registerUser = async (userData: any) => {
+export const signupUser = async (userData: any) => {
   const existingUser = await findUserByEmail(userData.email);
 
   // If user Exist

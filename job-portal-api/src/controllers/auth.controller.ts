@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { registerUser } from "../services/auth.service.js";
+import { signupUser } from "../services/auth.service.js";
 
-export const register = async (req: Request, res: Response) => {
+export const signup = async (req: Request, res: Response) => {
   try {
-    const user = await registerUser(req.body);
+    const user = await signupUser(req.body);
 
     return res.status(201).json({
       message: "Register API Working",
