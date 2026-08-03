@@ -1,19 +1,32 @@
-import { Request, Response } from "express";
-import { signupUser } from "../services/auth.service.js";
+import { authService } from "../services/auth.service.js";
+import { asyncHandler } from "../middlewares/asyncHandler.js";
 
-export const signup = async (req: Request, res: Response) => {
-  try {
-    const user = await signupUser(req.body);
+export const authController = {
+  signup: asyncHandler(async (req, res) => {
+    const user = await authService.signup(req.body);
 
     return res.status(201).json({
-      message: "Register API Working",
+      message: "User registered successfully",
       success: true,
       data: user,
     });
-  } catch (error) {
-    return res.status(400).json({
-      success: false,
-      message: error instanceof Error ? error.message : "Something went wrong",
+  }),
+  login: asyncHandler(async (req, res) => {
+    console.log(req)
+    const { email, password } = req.body;
+    const { user, token } = await authService.login(email, password);
+
+    res.cookie("accessToken", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 1000 * 60 * 60 * 24 * 7, // We'll improve this later
     });
-  }
+
+    return res.status(201).json({
+      message: "Login successfully",
+      success: true,
+      data: user,
+    });
+  }),
 };

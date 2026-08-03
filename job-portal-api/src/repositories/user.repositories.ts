@@ -1,9 +1,17 @@
-import { User } from "../models/user.modal.js";
+import { User } from "../models/user.model.js";
 
-export const createUser = async (userData: any) => {
-  return await User.create(userData);
-};
+interface CreateUserData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
 
-export const findUserByEmail = async (email: string) => {
-  return await User.findOne({ email });
+export const userRepository = {
+  async create(userData: CreateUserData) {
+    return User.create(userData);
+  },
+  async findByEmail(email: string) {
+    return User.findOne({ email });
+  },
 };
