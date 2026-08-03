@@ -7,8 +7,10 @@ import Input from "@/components/ui/input-field";
 import Button from "@/components/ui/button";
 import { authService } from "../services/auth.service";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const SignupForm = () => {
+  const router = useRouter();
   const {
     formState: { errors, isSubmitting },
     register,
@@ -27,8 +29,10 @@ const SignupForm = () => {
     try {
       const response = await authService.signup(data);
 
-      if (response?.success) toast.success(response?.message);
-      else toast.error(response?.message);
+      if (response?.success) {
+        toast.success(response?.message);
+        router.push("/auth/login");
+      } else toast.error(response?.message);
     } catch (error) {
       console.error(error);
     }
