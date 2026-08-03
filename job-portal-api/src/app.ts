@@ -1,4 +1,5 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import authRoutes from "./routes/auth.routes.js";
 
@@ -12,6 +13,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Auth Routes
 app.use("/api/v1/auth", authRoutes);
