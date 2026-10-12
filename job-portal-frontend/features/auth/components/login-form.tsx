@@ -7,8 +7,10 @@ import Input from "@/components/ui/input-field";
 import { authService } from "../services/auth.service";
 import { toast } from "sonner";
 import Button from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -24,9 +26,11 @@ const LoginForm = () => {
   const onSubmit = async (data: LoginFormData) => {
     try {
       const response = await authService.login(data);
+      await authService.me();
 
       if (response.success) {
         toast.success(response.message);
+        router.push("/dashboard");
         // We will save token and user data here to use in our dashboard
       } else toast.error(response.message);
     } catch (error: unknown) {

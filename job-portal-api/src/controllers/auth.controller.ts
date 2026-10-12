@@ -1,5 +1,6 @@
 import { authService } from "../services/auth.service.js";
 import { asyncHandler } from "../middlewares/asyncHandler.js";
+import { Request, Response } from "express";
 
 export const authController = {
   signup: asyncHandler(async (req, res) => {
@@ -12,7 +13,6 @@ export const authController = {
     });
   }),
   login: asyncHandler(async (req, res) => {
-    console.log(req)
     const { email, password } = req.body;
     const { user, token } = await authService.login(email, password);
 
@@ -27,6 +27,12 @@ export const authController = {
       message: "Login successfully",
       success: true,
       data: user,
+    });
+  }),
+  me: asyncHandler(async (req: Request, res: Response) => {
+    return res.status(200).json({
+      success: true,
+      data: req.user,
     });
   }),
 };

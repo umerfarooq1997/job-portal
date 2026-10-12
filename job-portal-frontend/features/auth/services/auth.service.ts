@@ -9,4 +9,7 @@ export const authService = {
   login(data: LoginFormData) {
     return api.post("/auth/login", data);
   },
+  me() {
+    return api.get("/auth/me");
+  },
 };
